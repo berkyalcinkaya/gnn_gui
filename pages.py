@@ -62,7 +62,7 @@ class FilePage(QWizardPage):
         else:
             return
         
-    def getFlistAttributes(self, file):
+    def getFlistAttributes(self):
         with open(self.filepath, "r") as f:
             self.files = [file.strip() for file in f.readlines()]
         self.extension = self.files[0].split(".")[-1]
