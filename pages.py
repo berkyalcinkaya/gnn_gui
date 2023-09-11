@@ -15,11 +15,8 @@ class FilePage(QWizardPage):
         self.setLayout(QGridLayout())
 
         self.openFileButton = QPushButton("Open Flist File")
+        self.openFileButton.setEnabled(True)
         self.layout().addWidget(self.openFileButton, 0,0,1,4)
-        self.fileLabel = QLabel()
-        self.layout().addWidget(self.fileLabel, 0,2,1,4)
-
-
         self.augmentedCheckbox = QCheckBox("Aug Data      |")
         self.layout().addWidget(self.augmentedCheckbox, 1,0,1,2)
 
@@ -55,12 +52,14 @@ class FilePage(QWizardPage):
         filePath, _ = QFileDialog.getOpenFileName(self, "Open Text File", "", "Text Files (*.txt);; Flist files (*.flist)", options=options)
         if filePath:
             self.filepath = filePath
-            self.fileLabel.setText(self.filepath)
+            self.textBox.setText(self.filepath)
             self.getFlistAttributes()
             self.textBox.clear()
-            self.textBox.setText(f"num_examples: {len(self.files)}")
+            self.textBox.setText(f"{self.textBox.text()}\nnum_examples: {len(self.files)}")
+            self.labelChoose.setEnabled(True)
         else:
-            return
+            self.labelChoose.setEnabled(False)
+            self.textBox.clear()
         
     def getFlistAttributes(self):
         with open(self.filepath, "r") as f:
@@ -89,6 +88,7 @@ class FilePage(QWizardPage):
             self.thresholdLevel.setValue(10)
         else:
             self.thresholdLevel.setEnabled(False)
+        self.addDataAttributesToText()
     
     def addDataAttributesToText(self):
         self.textBox.setText(f"{self.textBox.text()}\nshape: {self.shape}\ndtype: {self.dtype}\nis_binary: {self.is_binary}")
