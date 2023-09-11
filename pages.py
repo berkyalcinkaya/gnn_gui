@@ -52,12 +52,15 @@ class FilePage(QWizardPage):
 
     def openFileDialog(self):
         options = QFileDialog.Options()
-        filePath, _ = QFileDialog.getOpenFileName(self, "Open Text File", "", "Text Files (*.txt)", options=options)
-        self.filepath = filePath
-        self.fileLabel.setText(self.filepath)
-        self.getFlistAttributes()
-        self.textBox.clear()
-        self.textBox.setText(f"num_examples: {len(self.files)}")
+        filePath, _ = QFileDialog.getOpenFileName(self, "Open Text File", "", "Text Files (*.txt);; Flist files (*.flist)", options=options)
+        if filePath:
+            self.filepath = filePath
+            self.fileLabel.setText(self.filepath)
+            self.getFlistAttributes()
+            self.textBox.clear()
+            self.textBox.setText(f"num_examples: {len(self.files)}")
+        else:
+            return
         
     def getFlistAttributes(self, file):
         with open(self.filepath, "r") as f:
