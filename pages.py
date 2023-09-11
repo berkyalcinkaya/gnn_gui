@@ -29,7 +29,7 @@ class FilePage(QWizardPage):
         chooseLabel = QLabel("Choose variable key")
         self.labelChoose = QComboBox()
         self.labelChoose.setEnabled(False)
-        self.labelChoose.activated.connect(self.labelChooseChange)
+        self.labelChoose.currentIndexChanged.connect(self.labelChooseChange)
         self.layout().addWidget(chooseLabel, 2,0,1,2)
         self.layout().addWidget(self.labelChoose,2,2,1,2)
 
@@ -79,7 +79,10 @@ class FilePage(QWizardPage):
     def labelChooseChange(self):
         key = self.labelChoose.currentText()
         sample = loadmat(self.files[0])[key]
-        self.shape = sample.shape
+        try:
+            self.shape = sample.shape
+        except:
+            return
         self.dtype = sample.dtype
         self.is_binary = is_binary(sample)
         if self.is_binary:
