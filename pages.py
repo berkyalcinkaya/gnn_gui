@@ -43,7 +43,7 @@ class FilePage(QWizardPage):
         self.layout().addWidget(self.thresholdLevel, 3,2,1,1)
 
         self.textBox = QLabel()
-        self.layout().addWidget(self.textBox,2,0,1,4)
+        self.layout().addWidget(self.textBox,4,0,1,4)
 
         self.openFileButton.clicked.connect(self.openFileDialog)
         self.augmentedCheckbox.toggled.connect(self.augmentationFactor.setEnabled)
