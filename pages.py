@@ -32,7 +32,7 @@ class FilePage(QWizardPage):
         chooseLabel = QLabel("Choose variable key")
         self.labelChoose = QComboBox()
         self.labelChoose.setEnabled(False)
-        self.labelChoose.currentIndexChanged.connect(self.labelChooseChange)
+        self.labelChoose.activated.connect(self.labelChooseChange)
         self.layout().addWidget(chooseLabel, 2,0,1,2)
         self.layout().addWidget(self.labelChoose,2,2,1,2)
 
