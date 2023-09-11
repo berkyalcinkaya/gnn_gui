@@ -52,10 +52,9 @@ class FilePage(QWizardPage):
         filePath, _ = QFileDialog.getOpenFileName(self, "Open Text File", "", "Text Files (*.txt);; Flist files (*.flist)", options=options)
         if filePath:
             self.filepath = filePath
-            self.textBox.setText(self.filepath)
             self.getFlistAttributes()
             self.textBox.clear()
-            self.textBox.setText(f"{self.textBox.text()}\nnum_examples: {len(self.files)}")
+            self.textBox.setText(f"{self.filepath}\nnum_examples: {len(self.files)}")
             self.labelChoose.setEnabled(True)
         else:
             self.labelChoose.setEnabled(False)
@@ -91,7 +90,8 @@ class FilePage(QWizardPage):
         self.addDataAttributesToText()
     
     def addDataAttributesToText(self):
-        self.textBox.setText(f"{self.textBox.text()}\nshape: {self.shape}\ndtype: {self.dtype}\nis_binary: {self.is_binary}")
+        self.textBox.clear()
+        self.textBox.setText(f"num_examples: {len(self.files)}\nshape: {self.shape}\ndtype: {self.dtype}\nis_binary: {self.is_binary}")
 
 
 class ModelPage(QWizardPage):
